@@ -1,0 +1,60 @@
+{% extends "index.html" %}
+
+
+{% block main %}
+ <h2>Добавить заказ</h2>
+  <form id="form" action="{% url 'order:order-add' %}" method="post">{% csrf_token %}
+     
+    {{ form.non_field_errors }}
+    <fieldset class="form-inline">
+       <legend>Заказчик:</legend>
+       <div class="form-group">
+           {{ form.phone_number.errors }}
+           <label for="{{ form.phone_number.id_for_label }}">Телефон</label>:</label>
+           {{ form.phone_number }}
+       </div>
+       <div class="form-group">
+           {{ form.last_name.errors }}
+           <label for="{{ form.last_name.id_for_label }}">Фамилия</label>:</label>
+           {{ form.last_name }}
+       </div>
+       <div class="form-group">
+           {{ form.name.errors }}
+           <label for="{{ form.name.id_for_label }}">Имя</label>:</label>
+           {{ form.name }}
+       </div>
+       </fieldset>
+      <fieldset>
+       <div class="form-group">
+           {{ form.address.errors }}
+           <label for="{{ form.address.id_for_label }}">Адрес</label>:</label>
+           {{ form.address }}
+       </div>
+    </fieldset>
+    <fieldset class="form-inline">
+        <legend>Товар:</legend>
+        <div id="commodity">
+           <div class="form-group">
+               {{ form.item.errors }}
+               <label for="{{ form.item.id_for_label }}">Товар</label>:</label>
+               {{ form.item }}
+           </div>
+           <div class="form-group">
+               {{ form.quantity.errors }}
+               <label for="{{ form.quantity.id_for_label }}">Количество</label>:</label>
+               {{ form.quantity }}
+           </div>
+           <div class="form-group">
+               {{ form.cost.errors }}
+               <label for="{{ form.cost.id_for_label }}">Стоимость</label>:</label>
+               {{ form.cost }}
+           </div>
+        </div>
+        <div id="inputs"></div>
+        <div class="form-group">
+            <span id="add" class="glyphicon glyphicon-plus" aria-hidden=true></span>
+        </div>
+     </fieldset>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+{% endblock %}

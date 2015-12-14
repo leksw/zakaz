@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block main %}
+<h2>Изменить заказ</h2>
+  <div >
+    <table class="table">
+    <tr>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Стоимость</th>
+        <th>Изменить</th>
+    </tr>
+    {% for item in object_list %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.cost }}</td>
+        <td>{{ item.id }}</td>
+    </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

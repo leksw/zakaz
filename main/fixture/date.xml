@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="main.client" pk="1">
+        <field name="phone_number" type="CharField">72222222222</field>
+        <field name="name" type="CharField">Семен</field>
+        <field name="last_name" type="CharField">Семенов</field>
+        <field name="address" type="TextField">ул. Ленина, 87 г. Киров</field>
+    </object>
+    <object model="main.client" pk="2">
+        <field name="phone_number" type="CharField">73333333333</field>
+        <field name="name" type="CharField">Татьяна</field>
+        <field name="last_name" type="CharField">Танева</field>
+        <field name="address" type="TextField">ул. Пушкина, 23 г. Тула</field>
+    </object>
+    <object model="main.client" pk="3">
+        <field name="phone_number" type="CharField">777777777777</field>
+        <field name="name" type="CharField">Нина</field>
+        <field name="last_name" type="CharField">Нинова</field>
+        <field name="address" type="TextField">ул. Кирова, 4 г. Москва</field>
+    </object>
+    <object model="main.order" pk="3">
+        <field name="add_date" type="DateTimeField">2015-12-13T23:46:43.583787+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-13T23:46:43.583825+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">1</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="4">
+        <field name="add_date" type="DateTimeField">2015-12-13T23:46:51.894670+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-13T23:46:51.894725+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">2</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="5">
+        <field name="add_date" type="DateTimeField">2015-12-13T23:46:58.869385+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-13T23:46:58.869433+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">3</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="6">
+        <field name="add_date" type="DateTimeField">2015-12-13T23:47:05.706355+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-13T23:47:05.706412+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">1</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="7">
+        <field name="add_date" type="DateTimeField">2015-12-13T23:47:14.418589+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-13T23:47:14.418628+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">2</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="8">
+        <field name="add_date" type="DateTimeField">2015-12-13T23:47:21.505251+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-13T23:47:21.505290+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">3</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.item" pk="3">
+        <field name="name" type="CharField">Телефон</field>
+        <field name="cost" type="FloatField">1200.0</field>
+        <field name="amount" type="FloatField">3.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">3</field>
+    </object>
+    <object model="main.item" pk="4">
+        <field name="name" type="CharField">Планшет</field>
+        <field name="cost" type="FloatField">3600.0</field>
+        <field name="amount" type="FloatField">5.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">7</field>
+    </object>
+    <object model="main.item" pk="5">
+        <field name="name" type="CharField">Телевизор</field>
+        <field name="cost" type="FloatField">14389.0</field>
+        <field name="amount" type="FloatField">12.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">6</field>
+    </object>
+    <object model="main.item" pk="6">
+        <field name="name" type="CharField">Камера</field>
+        <field name="cost" type="FloatField">5987.0</field>
+        <field name="amount" type="FloatField">12.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">4</field>
+    </object>
+    <object model="main.item" pk="7">
+        <field name="name" type="CharField">Планшет</field>
+        <field name="cost" type="FloatField">6980.0</field>
+        <field name="amount" type="FloatField">5.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">8</field>
+    </object>
+    <object model="main.item" pk="8">
+        <field name="name" type="CharField">Телефон</field>
+        <field name="cost" type="FloatField">4300.0</field>
+        <field name="amount" type="FloatField">23.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">7</field>
+    </object>
+    <object model="main.item" pk="9">
+        <field name="name" type="CharField">Фотоаппарат</field>
+        <field name="cost" type="FloatField">2900.0</field>
+        <field name="amount" type="FloatField">15.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">5</field>
+    </object>
+    <object model="main.item" pk="10">
+        <field name="name" type="CharField">Камера</field>
+        <field name="cost" type="FloatField">5987.0</field>
+        <field name="amount" type="FloatField">12.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">4</field>
+    </object>
+    <object model="main.item" pk="11">
+        <field name="name" type="CharField">Планшет</field>
+        <field name="cost" type="FloatField">6980.0</field>
+        <field name="amount" type="FloatField">5.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">8</field>
+    </object>
+    <object model="main.item" pk="12">
+        <field name="name" type="CharField">Телефон</field>
+        <field name="cost" type="FloatField">4300.0</field>
+        <field name="amount" type="FloatField">23.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">7</field>
+    </object>
+    <object model="main.item" pk="13">
+        <field name="name" type="CharField">Фотоаппарат</field>
+        <field name="cost" type="FloatField">2900.0</field>
+        <field name="amount" type="FloatField">15.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">5</field>
+    </object>
+    <object model="main.item" pk="14">
+        <field name="name" type="CharField">Планшет</field>
+        <field name="cost" type="FloatField">3600.0</field>
+        <field name="amount" type="FloatField">5.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">4</field>
+    </object>
+    <object model="main.item" pk="15">
+        <field name="name" type="CharField">Телевизор</field>
+        <field name="cost" type="FloatField">14389.0</field>
+        <field name="amount" type="FloatField">12.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">6</field>
+    </object>
+</django-objects><?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="auth.user" pk="1">
+        <field name="password" type="CharField">pbkdf2_sha256$24000$0DZVHppIAGSE$vx19CorxvpyFBXiiywr6Vun/f6NNWdajV1Ewz8NANAo=</field>
+        <field name="last_login" type="DateTimeField">2015-12-13T23:43:22.825525+00:00</field>
+        <field name="is_superuser" type="BooleanField">True</field>
+        <field name="username" type="CharField">admin</field>
+        <field name="first_name" type="CharField"></field>
+        <field name="last_name" type="CharField"></field>
+        <field name="email" type="CharField"></field>
+        <field name="is_staff" type="BooleanField">True</field>
+        <field name="is_active" type="BooleanField">True</field>
+        <field name="date_joined" type="DateTimeField">2015-12-13T23:38:51.206390+00:00</field>
+        <field name="groups" rel="ManyToManyRel" to="auth.group"></field>
+        <field name="user_permissions" rel="ManyToManyRel" to="auth.permission"></field>
+    </object>
+</django-objects>

@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+{% load phone_number %}
+
+{% block main %}
+ <h2>Заказы</h2>
+ <div>
+     <div id="search">
+         <div class="row">
+            <div class="col-lg-offset-8">
+             <div class="checkbox">
+                <label>
+                  <input id="archive_checkbox" type="checkbox">
+                                              Показывать архивные заказы
+                </label>
+             </div>
+            <div class="input-group">
+                <span class="input-group-addon">Поиск по телефону</span>
+                <input id="phone_search" type="text"
+                       class="form-control input-medium bfh-phone"
+                       data-format="+7 (ddd) dd-dd-ddd">
+              </div><!-- /input-group -->
+              <div class="input-group">
+                <span class="input-group-addon">Дата заказа мин</span>
+                <input id="min" name="min" type="text" class="form-control">
+              </div><!-- /input-group -->
+              <div class="input-group">
+                <span class="input-group-addon">Дата заказа макс</span>
+                <input id="max" name="max" type="text" class="form-control">
+              </div><!-- /input-group -->
+             </div><!-- /.col-lg-8 -->
+          </div><!-- /.row -->
+     </div>
+     
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>Дата заказа</th>
+                <th>Дата изменения заказа</th>
+                <th>Телефон</th>
+                <th>Заказчик</th>
+                <th>Адрес заказчика</th>
+                <th>Стоимость заказа</th>
+                <th>Изменить</th>
+                <th>В архив</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Дата заказа</th>
+                <th>Дата изменения заказа</th>
+                <th>Телефон</th>
+                <th>Заказчик</th>
+                <th>Адрес заказчика</th>
+                <th>Стоимость заказа</th>
+                <th>Изменить</th>
+                <th>В архив</th>
+            </tr>
+        </tfoot>
+        <tbody>
+        {% for order in object_list %}
+        <tr {% if order.archive %}data-archive="1"{% endif %}>
+            <td>{{ order.add_date|date:"d.m.Y H:i" }}</td>
+            <td>{{ order.last_change_date|date:"d.m.Y H:i" }}</td>
+            <td>{{ order.client.phone_number|phone_format }}</td>
+            <td>{{ order.client.full_name }}</td>
+            <td>{{ order.client.address }}</td>
+            <td>{{ order.amount|floatformat:2 }}</td>
+            {% if not order.archive %}
+                <td class="change" item="{{ order.id }}">
+                  <a href="#" 
+                         class="btn btn-default" role="button">Изменить</a>
+                </td>
+                <td class="archive" item="{{ order.id }}">
+                    <button class="btn btn-default">В архив</button>
+                </td>
+            {% else %}   
+               <td></td>
+               <td>Архив</td>
+            {% endif %}
+            
+        </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
+{% endblock %}
