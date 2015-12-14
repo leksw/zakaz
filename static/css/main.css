@@ -8,3 +8,7 @@
 #table_id_filter {
     display: none; 
 }
+
+#form_ajax_error, .errorlist {
+    color: red;
+}

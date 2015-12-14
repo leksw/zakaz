@@ -1,9 +1,14 @@
 {% extends "index.html" %}
 
+{% block head_javascript %}
+    <script type="text/javascript"
+        src="http://malsup.github.com/min/jquery.form.min.js">
+    </script>
+{% endblock %}
 
 {% block main %}
  <h2>Добавить заказ</h2>
-  <form id="form" action="{% url 'order:order-add' %}" method="post">{% csrf_token %}
+  <form id="ajaxform" action="{% url 'order:order-add' %}" method="post">{% csrf_token %}
      
     {{ form.non_field_errors }}
     <fieldset class="form-inline">
@@ -54,7 +59,16 @@
         <div class="form-group">
             <span id="add" class="glyphicon glyphicon-plus" aria-hidden=true></span>
         </div>
-     </fieldset>
-        <button type="submit" class="btn btn-default">Submit</button>
+    </fieldset>
+    <div id="loading" style="display:none;">
+        <span id="load_text">loading...</span>
+    </div>
+    <div id="form_ajax" style="display:none;">
+        <span>Form submit successfully.</span>
+    </div>
+    <div id="form_ajax_error" style="display:none;">
+        <span>Can not submit data due to errors.</span>
+    </div> 
+    <button type="submit" class="btn btn-default">Submit</button>
     </form>
 {% endblock %}

@@ -33,6 +33,12 @@ class AddOrder(forms.Form):
     quantity = forms.CharField(label='Количество', max_length=100)
     cost = forms.CharField(label='Стоимость', max_length=100)
 
+    def clean_phone_number(self):
+        data = self.cleaned_data['phone_number']
+        if len(data) < 11:
+            raise forms.ValidationError('Phone number must have 11 numbers!')
+        return data
+
 
 class ClientForm(ModelForm):
     def __init__(self, *args, **kwargs):

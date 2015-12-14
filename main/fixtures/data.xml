@@ -18,6 +18,36 @@
         <field name="last_name" type="CharField">Нинова</field>
         <field name="address" type="TextField">ул. Кирова, 4 г. Москва</field>
     </object>
+    <object model="main.client" pk="4">
+        <field name="phone_number" type="CharField">79999999999</field>
+        <field name="name" type="CharField">Александр</field>
+        <field name="last_name" type="CharField">Пушкин</field>
+        <field name="address" type="TextField">пр. Мира,12</field>
+    </object>
+    <object model="main.client" pk="5">
+        <field name="phone_number" type="CharField">76666666666</field>
+        <field name="name" type="CharField">Андрей</field>
+        <field name="last_name" type="CharField">Андреев</field>
+        <field name="address" type="TextField">ул. Строителей, 27 г. Самара</field>
+    </object>
+    <object model="main.client" pk="6">
+        <field name="phone_number" type="CharField">74444444444</field>
+        <field name="name" type="CharField">Кирил</field>
+        <field name="last_name" type="CharField">Четверкин</field>
+        <field name="address" type="TextField">ул. Профсоюзов, 12</field>
+    </object>
+    <object model="main.client" pk="7">
+        <field name="phone_number" type="CharField">78888888888</field>
+        <field name="name" type="CharField">Никита</field>
+        <field name="last_name" type="CharField">Восмеркин</field>
+        <field name="address" type="TextField">ул. Пролетарская. 89</field>
+    </object>
+    <object model="main.client" pk="8">
+        <field name="phone_number" type="CharField">71111111111</field>
+        <field name="name" type="CharField">Инокентий</field>
+        <field name="last_name" type="CharField">Городин</field>
+        <field name="address" type="TextField">пр. Победы, 9</field>
+    </object>
     <object model="main.order" pk="3">
         <field name="add_date" type="DateTimeField">2015-12-13T23:46:43.583787+00:00</field>
         <field name="last_change_date" type="DateTimeField">2015-12-13T23:46:43.583825+00:00</field>
@@ -26,15 +56,15 @@
     </object>
     <object model="main.order" pk="4">
         <field name="add_date" type="DateTimeField">2015-12-13T23:46:51.894670+00:00</field>
-        <field name="last_change_date" type="DateTimeField">2015-12-13T23:46:51.894725+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:20:54.811939+00:00</field>
         <field name="client" rel="ManyToOneRel" to="main.client">2</field>
-        <field name="archive" type="BooleanField">False</field>
+        <field name="archive" type="BooleanField">True</field>
     </object>
     <object model="main.order" pk="5">
         <field name="add_date" type="DateTimeField">2015-12-13T23:46:58.869385+00:00</field>
-        <field name="last_change_date" type="DateTimeField">2015-12-13T23:46:58.869433+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:20:43.390028+00:00</field>
         <field name="client" rel="ManyToOneRel" to="main.client">3</field>
-        <field name="archive" type="BooleanField">False</field>
+        <field name="archive" type="BooleanField">True</field>
     </object>
     <object model="main.order" pk="6">
         <field name="add_date" type="DateTimeField">2015-12-13T23:47:05.706355+00:00</field>
@@ -52,6 +82,36 @@
         <field name="add_date" type="DateTimeField">2015-12-13T23:47:21.505251+00:00</field>
         <field name="last_change_date" type="DateTimeField">2015-12-13T23:47:21.505290+00:00</field>
         <field name="client" rel="ManyToOneRel" to="main.client">3</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="9">
+        <field name="add_date" type="DateTimeField">2015-12-14T09:16:59.475558+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:16:59.475664+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">4</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="10">
+        <field name="add_date" type="DateTimeField">2015-12-14T09:19:23.297790+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:19:23.297878+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">5</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="11">
+        <field name="add_date" type="DateTimeField">2015-12-14T09:25:03.115105+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:25:03.115232+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">6</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="12">
+        <field name="add_date" type="DateTimeField">2015-12-14T09:26:11.971989+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:26:11.972096+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">7</field>
+        <field name="archive" type="BooleanField">False</field>
+    </object>
+    <object model="main.order" pk="13">
+        <field name="add_date" type="DateTimeField">2015-12-14T09:27:18.167526+00:00</field>
+        <field name="last_change_date" type="DateTimeField">2015-12-14T09:27:18.167635+00:00</field>
+        <field name="client" rel="ManyToOneRel" to="main.client">8</field>
         <field name="archive" type="BooleanField">False</field>
     </object>
     <object model="main.item" pk="3">
@@ -132,8 +192,37 @@
         <field name="amount" type="FloatField">12.0</field>
         <field name="order" rel="ManyToOneRel" to="main.order">6</field>
     </object>
-</django-objects><?xml version="1.0" encoding="utf-8"?>
-<django-objects version="1.0">
+    <object model="main.item" pk="16">
+        <field name="name" type="CharField">Тюнер</field>
+        <field name="cost" type="FloatField">290.0</field>
+        <field name="amount" type="FloatField">25.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">9</field>
+    </object>
+    <object model="main.item" pk="17">
+        <field name="name" type="CharField">Флешка</field>
+        <field name="cost" type="FloatField">250.0</field>
+        <field name="amount" type="FloatField">400.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">10</field>
+    </object>
+    <object model="main.item" pk="18">
+        <field name="name" type="CharField">ИБП</field>
+        <field name="cost" type="FloatField">780.0</field>
+        <field name="amount" type="FloatField">45.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">11</field>
+    </object>
+    <object model="main.item" pk="19">
+        <field name="name" type="CharField">Ксерокс</field>
+        <field name="cost" type="FloatField">1480.0</field>
+        <field name="amount" type="FloatField">23.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">12</field>
+    </object>
+    <object model="main.item" pk="20">
+        <field name="name" type="CharField">Телефон</field>
+        <field name="cost" type="FloatField">3500.0</field>
+        <field name="amount" type="FloatField">50.0</field>
+        <field name="order" rel="ManyToOneRel" to="main.order">13</field>
+    </object>
+
     <object model="auth.user" pk="1">
         <field name="password" type="CharField">pbkdf2_sha256$24000$0DZVHppIAGSE$vx19CorxvpyFBXiiywr6Vun/f6NNWdajV1Ewz8NANAo=</field>
         <field name="last_login" type="DateTimeField">2015-12-13T23:43:22.825525+00:00</field>
