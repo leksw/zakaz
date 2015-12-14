@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.http import HttpResponseBadRequest
 
 
 from .models import Client, Order, Item
@@ -33,7 +34,7 @@ class OrderUpdateView(ListView):
 def add_order(request):
     if request.method == 'POST':
         form = AddOrder(request.POST)
-        
+        print (request.POST)
         if form.is_valid():
             phone_number = form.cleaned_data.get('phone_number')
             name = form.cleaned_data.get('name')
@@ -58,8 +59,17 @@ def add_order(request):
                 cost=cost,
                 order=order)
             item.save()    
-
-            return HttpResponseRedirect('/')
+            
+            if request.is_ajax():
+                return JsonResponse({'all':'ok'})
+            else:
+                return HttpResponseRedirect('/')
+        else:
+            if request.is_ajax():
+                return HttpResponseBadRequest(form.errors.as_json())
+            else:
+                # render() form with errors (No AJAX)
+                pass
     else:
         form = AddOrder()
 

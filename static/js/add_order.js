@@ -1,4 +1,44 @@
+
 $(document).ready(function() {
+    var itemIndex = 0;
+    
+    $('#ajaxform')
+        .on('click', '.addButton', function() {
+            itemIndex++;
+            var $template = $('#commodity'),
+                $clone    = $template
+                                .clone()
+                                .removeAttr('id')
+                                .attr('data-item-index', itemIndex)
+                                .insertAfter($template);
+
+            // Update the name attributes
+            $clone
+                .find('[name="item"]').attr('name', 'item_' + itemIndex).removeAttr('id').end()
+                .find('[name="quantity"]').attr('name', 'quantity_' + itemIndex).removeAttr('id').end()
+                .find('[name="cost"]').attr('name', 'cost_' + itemIndex).removeAttr('id').end()
+                .find('span').removeClass('glyphicon glyphicon-plus addButton').addClass('glyphicon glyphicon-minus removeButton').end();
+
+            // Add new fields
+            // Note that we also pass the validator rules for new field as the third parameter
+            
+        })
+
+        // Remove button click handler
+        .on('click', '.removeButton', function() {
+            var $row  = $(this).parents('.form-group'),
+                index = $row.attr('data-item-index');
+
+            // Remove fields
+            $row.find('[name="item_' + index + '"]').remove();
+            $row.find('[name="quantity_' + index + '"]').remove();
+            $row.find('[name="cost_' + index + '"]').remove();
+
+            // Remove element containing the fields
+            $row.remove();
+        });
+
+    
     function block_form() {
         $("#loading").show();
         $('textarea').attr('disabled', 'disabled');
@@ -30,9 +70,12 @@ $(document).ready(function() {
             $("#form_ajax_error").show();
             // render errors in form fields
             var errors = JSON.parse(resp.responseText);
-            for (error in errors) {
+            
+            for (var error in errors) {
                 var id = '#id_' + error;
-                $(id).parent('p').prepend(errors[error]);
+                $(id).parent('div')
+                     .prepend("<div class='errorlist'>" + errors[error][0].message + "</div>");
+                console.log(errors[error][0].message);
             }
             setTimeout(function() {
                 $("#form_ajax_error").hide();

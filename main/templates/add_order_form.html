@@ -1,11 +1,5 @@
 {% extends "index.html" %}
 
-{% block head_javascript %}
-    <script type="text/javascript"
-        src="http://malsup.github.com/min/jquery.form.min.js">
-    </script>
-{% endblock %}
-
 {% block main %}
  <h2>Добавить заказ</h2>
   <form id="ajaxform" action="{% url 'order:order-add' %}" method="post">{% csrf_token %}
@@ -15,50 +9,49 @@
        <legend>Заказчик:</legend>
        <div class="form-group">
            {{ form.phone_number.errors }}
-           <label for="{{ form.phone_number.id_for_label }}">Телефон</label>:</label>
+           <label for="{{ form.phone_number.id_for_label }}">Телефон</label>
            {{ form.phone_number }}
        </div>
        <div class="form-group">
            {{ form.last_name.errors }}
-           <label for="{{ form.last_name.id_for_label }}">Фамилия</label>:</label>
+           <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
            {{ form.last_name }}
        </div>
        <div class="form-group">
            {{ form.name.errors }}
-           <label for="{{ form.name.id_for_label }}">Имя</label>:</label>
+           <label for="{{ form.name.id_for_label }}">Имя</label>
            {{ form.name }}
        </div>
        </fieldset>
       <fieldset>
        <div class="form-group">
            {{ form.address.errors }}
-           <label for="{{ form.address.id_for_label }}">Адрес</label>:</label>
+           <label for="{{ form.address.id_for_label }}">Адрес</label>
            {{ form.address }}
        </div>
     </fieldset>
     <fieldset class="form-inline">
         <legend>Товар:</legend>
-        <div id="commodity">
+        <div id="commodity" class="form-group">
            <div class="form-group">
                {{ form.item.errors }}
-               <label for="{{ form.item.id_for_label }}">Товар</label>:</label>
+               <label for="{{ form.item.id_for_label }}">Товар</label>
                {{ form.item }}
            </div>
            <div class="form-group">
                {{ form.quantity.errors }}
-               <label for="{{ form.quantity.id_for_label }}">Количество</label>:</label>
+               <label for="{{ form.quantity.id_for_label }}">Количество</label>
                {{ form.quantity }}
            </div>
            <div class="form-group">
                {{ form.cost.errors }}
-               <label for="{{ form.cost.id_for_label }}">Стоимость</label>:</label>
+               <label for="{{ form.cost.id_for_label }}">Стоимость</label>
                {{ form.cost }}
            </div>
-        </div>
-        <div id="inputs"></div>
-        <div class="form-group">
-            <span id="add" class="glyphicon glyphicon-plus" aria-hidden=true></span>
-        </div>
+           <div class="form-group">
+              <span class="glyphicon glyphicon-plus addButton"></span>
+           </div>
+         </div> 
     </fieldset>
     <div id="loading" style="display:none;">
         <span id="load_text">loading...</span>
