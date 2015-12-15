@@ -10,7 +10,7 @@ from django.http import HttpResponseBadRequest
 
 from .models import Client, Order, Item
 from .forms import ClientForm, AddOrder
-
+from .utils import get_request_adddata
 
 class OrderListView(ListView):
     queryset = Order.objects.amount()
@@ -34,7 +34,7 @@ class OrderUpdateView(ListView):
 def add_order(request):
     if request.method == 'POST':
         form = AddOrder(request.POST)
-        print (request.POST)
+
         if form.is_valid():
             phone_number = form.cleaned_data.get('phone_number')
             name = form.cleaned_data.get('name')
@@ -59,6 +59,14 @@ def add_order(request):
                 cost=cost,
                 order=order)
             item.save()    
+            
+            for commodity in get_request_adddata('order', request.POST):
+                other_item = Item(
+                    name=commodity.get('item'),
+                    amount=commodity.get('quantity'),
+                    cost=commodity.get('cost'),
+                    order=order)
+                other_item.save() 
             
             if request.is_ajax():
                 return JsonResponse({'all':'ok'})

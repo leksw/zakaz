@@ -1,7 +1,21 @@
 
+
+function compute(){
+    var result=0;
+    $("#ajaxform").children().each(function(){
+        var firstValue=$("[name='quantity']", this).val();
+        var secondValue = $("[name='cost']", this).val();
+        result+=firstValue*secondValue;
+        console.log(firstValue);
+    });
+    //alert(result);
+}
+
 $(document).ready(function() {
     var itemIndex = 0;
     
+    
+    $(".sum input").change(compute);
     $('#ajaxform')
         .on('click', '.addButton', function() {
             itemIndex++;
@@ -14,14 +28,14 @@ $(document).ready(function() {
 
             // Update the name attributes
             $clone
-                .find('[name="item"]').attr('name', 'item_' + itemIndex).removeAttr('id').end()
-                .find('[name="quantity"]').attr('name', 'quantity_' + itemIndex).removeAttr('id').end()
-                .find('[name="cost"]').attr('name', 'cost_' + itemIndex).removeAttr('id').end()
+                .find('[name="item"]').attr('name', 'order_item_' + itemIndex).removeAttr('id').val('').end()
+                .find('[name="quantity"]').attr('name', 'order_quantity_' + itemIndex).removeAttr('id').val('').end()
+                .find('[name="cost"]').attr('name', 'order_cost_' + itemIndex).removeAttr('id').val('').end()
                 .find('span').removeClass('glyphicon glyphicon-plus addButton').addClass('glyphicon glyphicon-minus removeButton').end();
 
             // Add new fields
             // Note that we also pass the validator rules for new field as the third parameter
-            
+                                                                                            
         })
 
         // Remove button click handler
