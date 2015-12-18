@@ -5,7 +5,7 @@ from django.forms import ModelForm
 from django import forms
 from django.forms import CharField
 
-from .models import Client
+from .models import Client, Item
 
 
 class PhoneField(CharField):
@@ -22,8 +22,13 @@ class AddOrder(forms.Form):
                 field.widget.attrs['class'] = 'form-control input-medium bfh-phone'
                 field.widget.attrs['data-format'] = '+7 (ddd) dd-dd-ddd'
             else:
-                field.widget.attrs['class'] = 'form-control'
-    
+                if field_name == 'quantity':
+                    field.widget.attrs['class'] = 'form-control quantity'
+                elif field_name == 'cost':
+                    field.widget.attrs['class'] = 'form-control cost'
+                else:
+                    field.widget.attrs['class'] = 'form-control'
+                    
     phone_number = PhoneField(label='Телефон')
     last_name = forms.CharField(label='Фамилия', max_length=100)
     name = forms.CharField(label='Имя', max_length=100)
@@ -49,3 +54,13 @@ class ClientForm(ModelForm):
     class Meta:
         model = Client
         fields = ['phone_number', 'last_name', 'name', 'address']
+
+class ItemForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = Item
+        fields = ['name','amount', 'cost']

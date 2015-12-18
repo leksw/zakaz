@@ -3,7 +3,11 @@
 
 def get_request_adddata(sign, dict_request, n=3):
     """
-    
+    Search in request dinamically formed fields data
+    and prepare its to past in db:
+    sign - 
+    dict_request - 
+    n -
     """
     data = filter(lambda x: x.startswith(sign), dict_request)
     data = sorted(data, key=lambda number: int(number[-1]))

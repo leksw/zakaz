@@ -31,19 +31,19 @@
        </div>
     </fieldset>
     <fieldset class="form-inline">
-        <legend>Товар:</legend>
-        <div id="commodity" class="form-group">
+        <legend>Товар на сумму:&nbsp;<spin id="sum">0</spin></legend>
+        <div id="commodity" class="form-group sum" >
            <div class="form-group">
                {{ form.item.errors }}
                <label for="{{ form.item.id_for_label }}">Товар</label>
                {{ form.item }}
            </div>
-           <div class="form-group sum">
+           <div class="form-group">
                {{ form.quantity.errors }}
                <label for="{{ form.quantity.id_for_label }}">Количество</label>
                {{ form.quantity }}
            </div>
-           <div class="form-group sum">
+           <div class="form-group">
                {{ form.cost.errors }}
                <label for="{{ form.cost.id_for_label }}">Стоимость</label>
                {{ form.cost }}
@@ -51,7 +51,7 @@
            <div class="form-group">
               <span class="glyphicon glyphicon-plus addButton"></span>
            </div>
-         </div> 
+        </div> 
     </fieldset>
     <div id="loading" style="display:none;">
         <span id="load_text">loading...</span>
@@ -61,7 +61,9 @@
     </div>
     <div id="form_ajax_error" style="display:none;">
         <span>Can not submit data due to errors.</span>
-    </div> 
-    <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+     <div class="form-group">
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
     </form>
 {% endblock %}

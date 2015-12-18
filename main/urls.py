@@ -2,7 +2,7 @@
 from django.conf.urls import url
 
 from .views import (
-    OrderListView, OrderUpdateView, OrderDetailView, add_order, archive)
+    OrderListView, OrderDetailView, add_order, archive, change_order)
 
 
 urlpatterns = [
@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^order/(?P<pk>[0-9]+)/$', OrderDetailView.as_view(), name='order-detail'),
     url(r'^add/$', add_order, name='order-add'),
     url(r'^change/(?P<pk>[0-9]+)/$',
-        OrderUpdateView.as_view(),
+        change_order,
         name='order-change'),
     url(r'^archive_ajax/$', archive, name='order-archive'),
     

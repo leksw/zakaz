@@ -12,3 +12,7 @@
 #form_ajax_error, .errorlist {
     color: red;
 }
+
+.form-group {
+    padding-bottom: 10px;
+}

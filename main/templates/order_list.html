@@ -65,7 +65,7 @@
             <td>{{ order.amount|floatformat:2 }}</td>
             {% if not order.archive %}
                 <td class="change" item="{{ order.id }}">
-                  <a href="#" 
+                  <a href="{% url 'order:order-change' order.id %}" 
                          class="btn btn-default" role="button">Изменить</a>
                 </td>
                 <td class="archive" item="{{ order.id }}">

@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.http import HttpResponseBadRequest
-
+from django.forms.formsets import formset_factory
 
 from .models import Client, Order, Item
-from .forms import ClientForm, AddOrder
+from .forms import ClientForm, AddOrder, ItemForm
 from .utils import get_request_adddata
+
 
 class OrderListView(ListView):
     queryset = Order.objects.amount()
@@ -82,6 +83,20 @@ def add_order(request):
         form = AddOrder()
 
     return render(request, 'add_order_form.html', {'form': form})
+
+
+def change_order(request, pk):
+    item = Item.objects.filter(order__id=int(pk)).values('name', 'cost', 'amount')
+    
+    Itemformset = formset_factory(ItemForm,  max_num=0)
+    formset = Itemformset(initial=item)
+    context = {'formset': formset}
+    
+    client = Client.objects.get(id=int(pk)).values()
+    form = ClientForm(initial=client)
+    
+    return render(request, 'change_order_form.html', {'formset': formset})
+
 
 def archive(request):
     if request.method == 'GET':

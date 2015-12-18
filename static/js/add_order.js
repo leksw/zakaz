@@ -1,21 +1,43 @@
-
-
-function compute(){
-    var result=0;
-    $("#ajaxform").children().each(function(){
-        var firstValue=$("[name='quantity']", this).val();
-        var secondValue = $("[name='cost']", this).val();
-        result+=firstValue*secondValue;
-        console.log(firstValue);
-    });
-    //alert(result);
-}
+function prop(obj){
+    for(var prop in obj) {
+        if (!obj.hasOwnProperty(prop)) continue;
+        console.log(prop);
+        }
+}    
+var $form = $('#ajaxform'),
+$sumDisplay = $('#sum');
 
 $(document).ready(function() {
+    $form.on('change', 'input', function (){
+        var sum = 0,
+        multiply = 0,
+        input_one = $(this);
+        
+        if (input_one.hasClass('cost')){
+            var input_two = input_one.parent().prev('div').find('input');
+        } else {
+            input_two = input_one.parent().next('div').find('input');
+        }
+        
+        if (input_one.val() && input_two.val()) {
+                multiply = Number(input_one.val())*Number(input_two.val());
+        }
+        
+        $(this).parent().parent().attr('multiply', multiply);
+        
+
+        $('.sum').each(function () {
+            var value = Number($(this).attr('multiply'));
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
+        
+        $sumDisplay.text(sum);
+    });
+    
     var itemIndex = 0;
-    
-    
-    $(".sum input").change(compute);
+      
     $('#ajaxform')
         .on('click', '.addButton', function() {
             itemIndex++;
@@ -24,18 +46,36 @@ $(document).ready(function() {
                                 .clone()
                                 .removeAttr('id')
                                 .attr('data-item-index', itemIndex)
+                                .attr('multiply', 0)
                                 .insertAfter($template);
 
             // Update the name attributes
             $clone
-                .find('[name="item"]').attr('name', 'order_item_' + itemIndex).removeAttr('id').val('').end()
-                .find('[name="quantity"]').attr('name', 'order_quantity_' + itemIndex).removeAttr('id').val('').end()
-                .find('[name="cost"]').attr('name', 'order_cost_' + itemIndex).removeAttr('id').val('').end()
-                .find('span').removeClass('glyphicon glyphicon-plus addButton').addClass('glyphicon glyphicon-minus removeButton').end();
-
-            // Add new fields
-            // Note that we also pass the validator rules for new field as the third parameter
-                                                                                            
+                .find('[name="item"]')
+                    .attr('name', 'order_item_' + itemIndex)
+                    .attr('id', 'id_item_' + itemIndex)
+                    .val('').end()
+                .find('[name="quantity"]')
+                    .attr('name', 'order_quantity_' + itemIndex)
+                    .attr('id', 'id_quantity_' + itemIndex)
+                    .val('').end()
+                .find('[name="cost"]')
+                    .attr('name', 'order_cost_' + itemIndex)
+                    .attr('id', 'id_cost_' + itemIndex)
+                    .val('').end()
+                .find('label[for="id_item"]')
+                    .attr('for', 'id_item_' + itemIndex)
+                    .end()
+                .find('label[for="id_quantity"]')
+                    .attr('for', 'id_quantity_' + itemIndex)
+                    .end()
+                .find('label[for="id_cost"]')
+                    .attr('for', 'id_cost_' + itemIndex)
+                    .end()    
+                .find('span')
+                    .removeClass('glyphicon glyphicon-plus addButton')
+                    .addClass('glyphicon glyphicon-minus removeButton').end();
+                
         })
 
         // Remove button click handler
@@ -50,6 +90,7 @@ $(document).ready(function() {
 
             // Remove element containing the fields
             $row.remove();
+            $('input').change();
         });
 
     
