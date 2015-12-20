@@ -2,12 +2,75 @@
 
 {% block main %}
  <h2>Изменить заказ</h2>
- <fieldset class="form-inline amount">
-    <legend>Товар:</legend>
-     {% for form in formset %}
-       <div id="commodity" class="form-group" >
-       {{ form }}
+ <form id="ajaxform" action="{% url 'order:order-change' pk %}" method="post">{% csrf_token %}
+     
+    {{ form.non_field_errors }}
+    <fieldset class="form-inline">
+       <legend>Заказчик:</legend>
+       <div class="form-group">
+           {{ form.phone_number.errors }}
+           <label for="{{ form.phone_number.id_for_label }}">Телефон</label>
+           {{ form.phone_number }}
        </div>
-     {% endfor %}
-</fieldset>
+       <div class="form-group">
+           {{ form.last_name.errors }}
+           <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+           {{ form.last_name }}
+       </div>
+       <div class="form-group">
+           {{ form.name.errors }}
+           <label for="{{ form.name.id_for_label }}">Имя</label>
+           {{ form.name }}
+       </div>
+       </fieldset>
+      <fieldset>
+       <div class="form-group">
+           {{ form.address.errors }}
+           <label for="{{ form.address.id_for_label }}">Адрес</label>
+           {{ form.address }}
+       </div>
+    </fieldset>
+    <fieldset class="form-inline">
+        <legend>Товар на сумму:&nbsp;<spin id="sum">0</spin></legend>
+        
+            {{ formset.management_form }}
+            {% for form in formset %}
+            <div id="commodity" class="form-group sum">
+               <div class="form-group">
+                    {{ form.name.errors }}
+                     <label for="{{ form.name.id_for_label }}">Товар</label>
+                {{ form.name }}
+                </div>
+                <div class="form-group">
+                    {{ form.amount.errors }}
+                     <label for="{{ form.amount.id_for_label }}">Количество</label>
+                {{ form.amount }}
+                </div>
+                <div class="form-group">
+                    {{ form.cost.errors }}
+                     <label for="{{ form.cost.id_for_label }}">Стоимость</label>
+                     {{ form.cost }}
+                </div>
+                {{ form.id }}
+              
+             {% endfor %}
+           
+           <div class="form-group">
+              
+           </div>
+        </div>
+    </fieldset>
+    <div id="loading" style="display:none;">
+        <span id="load_text">loading...</span>
+    </div>
+    <div id="form_ajax" style="display:none;">
+        <span>Form submit successfully.</span>
+    </div>
+    <div id="form_ajax_error" style="display:none;">
+        <span>Can not submit data due to errors.</span>
+    </div>
+     <div class="form-group">
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+    </form>
  {% endblock %}

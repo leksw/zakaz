@@ -59,8 +59,13 @@ class ItemForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            if 'amount' in field_name:
+                field.widget.attrs['class'] = 'form-control quantity'
+            elif 'cost' in field_name:
+                field.widget.attrs['class'] = 'form-control cost'
+            else:
+                field.widget.attrs['class'] = 'form-control'
 
     class Meta:
         model = Item
-        fields = ['name','amount', 'cost']
+        fields = ['name', 'amount', 'cost']

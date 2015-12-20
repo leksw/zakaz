@@ -37,7 +37,9 @@ $(document).ready(function() {
     });
     
     var itemIndex = 0;
-      
+    
+    $('input').change();
+    
     $('#ajaxform')
         .on('click', '.addButton', function() {
             itemIndex++;
@@ -125,12 +127,16 @@ $(document).ready(function() {
             $("#form_ajax_error").show();
             // render errors in form fields
             var errors = JSON.parse(resp.responseText);
-            
+
             for (var error in errors) {
                 var id = '#id_' + error;
-                $(id).parent('div')
-                     .prepend("<div class='errorlist'>" + errors[error][0].message + "</div>");
-                console.log(errors[error][0].message);
+                if (id.indexOf('form') == -1){
+                    $(id).parent('div')
+                        .prepend("<div class='errorlist'>" + errors[error][0].message + "</div>");
+                }else{
+                    $(id).parent('div')
+                        .prepend("<div class='errorlist'>" + errors[error][0] + "</div>");
+                }     
             }
             setTimeout(function() {
                 $("#form_ajax_error").hide();

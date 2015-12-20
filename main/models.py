@@ -19,6 +19,13 @@ class Client(models.Model):
     def full_name(self):
         return '%s %s' % (self.last_name, self.name)
 
+    def get_dict_object(self):
+        return {
+            'name': self.name,
+            'phone_number': self.phone_number,
+            'last_name': self.last_name,
+            'address': self.address}
+
 class OrderQuerySet(models.QuerySet):
     def amount(self):
         return self.annotate(amount=Sum(F('items__cost')*F('items__amount')))

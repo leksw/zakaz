@@ -6,11 +6,11 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.http import HttpResponseBadRequest
-from django.forms.formsets import formset_factory
+from django.forms.models import modelformset_factory
 
 from .models import Client, Order, Item
 from .forms import ClientForm, AddOrder, ItemForm
-from .utils import get_request_adddata
+from .utils import get_request_data, get_dict_errors_formset
 
 
 class OrderListView(ListView):
@@ -35,7 +35,7 @@ class OrderUpdateView(ListView):
 def add_order(request):
     if request.method == 'POST':
         form = AddOrder(request.POST)
-
+        
         if form.is_valid():
             phone_number = form.cleaned_data.get('phone_number')
             name = form.cleaned_data.get('name')
@@ -61,13 +61,22 @@ def add_order(request):
                 order=order)
             item.save()    
             
-            for commodity in get_request_adddata('order', request.POST):
-                other_item = Item(
-                    name=commodity.get('item'),
-                    amount=commodity.get('quantity'),
-                    cost=commodity.get('cost'),
-                    order=order)
-                other_item.save() 
+            for commodity in get_request_data('order', request.POST):
+                commodity_request = {
+                    'name': commodity.get('item'),
+                    'amount': commodity.get('quantity'),
+                    'cost': commodity.get('cost')}
+
+                commodity_form = ItemForm(commodity_request)
+
+                commodity_request.update({'order': order})
+                
+                if commodity_form.is_valid():
+                    other_item = Item(**commodity_request)
+                    other_item.save()
+                else:
+                    if request.is_ajax():
+                        return HttpResponseBadRequest(form.errors.as_json())    
             
             if request.is_ajax():
                 return JsonResponse({'all':'ok'})
@@ -86,16 +95,39 @@ def add_order(request):
 
 
 def change_order(request, pk):
-    item = Item.objects.filter(order__id=int(pk)).values('name', 'cost', 'amount')
-    
-    Itemformset = formset_factory(ItemForm,  max_num=0)
-    formset = Itemformset(initial=item)
-    context = {'formset': formset}
-    
-    client = Client.objects.get(id=int(pk)).values()
-    form = ClientForm(initial=client)
-    
-    return render(request, 'change_order_form.html', {'formset': formset})
+    content = {'pk': pk}
+    order = Order.objects.get(id=int(pk))
+    client = Client.objects.get(orders__id=int(pk))
+    item = Item.objects.filter(order=order)
+
+    Itemformset = modelformset_factory(Item, form=ItemForm,  max_num=0)
+
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        formset = Itemformset(request.POST)
+        
+        if form.has_changed():
+            if form.is_valid():
+                form.save()
+            else:
+                if request.is_ajax():
+                    return HttpResponseBadRequest(form.errors.as_json())    
+
+        if formset.has_changed():
+            if formset.is_valid():
+                formset.save()
+            else:
+                print (get_dict_errors_formset(formset))
+                if request.is_ajax():
+                    return HttpResponseBadRequest(get_dict_errors_formset(formset))
+    else:
+        formset = Itemformset(queryset=item)
+        content['formset'] = formset
+
+        form = ClientForm(initial=order.client.get_dict_object())
+        content['form'] = form
+
+    return render(request, 'change_order_form.html', content)
 
 
 def archive(request):

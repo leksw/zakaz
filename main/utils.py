@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import json
 
-
-def get_request_adddata(sign, dict_request, n=3):
+def get_request_data(sign, dict_request, n=3):
     """
     Search in request dinamically formed fields data
     and prepare its to past in db:
@@ -17,3 +17,14 @@ def get_request_adddata(sign, dict_request, n=3):
             }) for i in range(int(len(data)/n))]
 
     return data
+
+def get_dict_errors_formset(formset):
+    prefix = formset.get_default_prefix()
+    errors_dict = {}
+
+    for index, errors in enumerate(formset.errors):
+        for error in errors:
+            name = "%s-%d-%s" % (prefix, index, error)
+            errors_dict[name] = errors[error]
+            
+    return json.dumps(errors_dict)
