@@ -1,4 +1,6 @@
 {% extends "index.html" %}
+{% load staticfiles %}
+
 
 {% block main %}
  <h2>Добавить заказ</h2>
@@ -32,26 +34,33 @@
     </fieldset>
     <fieldset class="form-inline">
         <legend>Товар на сумму:&nbsp;<spin id="sum">0</spin></legend>
-        <div id="commodity" class="form-group sum" >
-           <div class="form-group">
-               {{ form.item.errors }}
-               <label for="{{ form.item.id_for_label }}">Товар</label>
-               {{ form.item }}
-           </div>
-           <div class="form-group">
-               {{ form.quantity.errors }}
-               <label for="{{ form.quantity.id_for_label }}">Количество</label>
-               {{ form.quantity }}
-           </div>
-           <div class="form-group">
-               {{ form.cost.errors }}
-               <label for="{{ form.cost.id_for_label }}">Стоимость</label>
-               {{ form.cost }}
-           </div>
-           <div class="form-group">
-              <span class="glyphicon glyphicon-plus addButton"></span>
-           </div>
-        </div> 
+            <div id="management_formset">
+            {{ formset.management_form }}
+            </div>
+            {% for form in formset %}
+            <div class="form-group sum">
+               <div class="form-group">
+                    {{ form.name.errors }}
+                     <label for="{{ form.name.id_for_label }}">Товар</label>
+                {{ form.name }}
+                </div>
+                <div class="form-group">
+                    {{ form.amount.errors }}
+                     <label for="{{ form.amount.id_for_label }}">Количество</label>
+                {{ form.amount }}
+                </div>
+                <div class="form-group">
+                    {{ form.cost.errors }}
+                     <label for="{{ form.cost.id_for_label }}">Стоимость</label>
+                     {{ form.cost }}
+                </div>
+                {{ form.id }}
+               <div class="form-group trigger">
+                   
+               </div>
+            </div>
+         {% endfor %}
+         <span id="trigger" class="glyphicon" style="display:none;"></span>
     </fieldset>
     <div id="loading" style="display:none;">
         <span id="load_text">loading...</span>
@@ -67,3 +76,6 @@
     </div>
     </form>
 {% endblock %}
+{% block footer_javascript %}
+ <script src="{% static 'js/change_order.js' %}"></script>
+ {% endblock %}

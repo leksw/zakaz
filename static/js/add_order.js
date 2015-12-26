@@ -25,9 +25,9 @@ $(document).ready(function() {
         
         $(this).parent().parent().attr('multiply', multiply);
         
-
-        $('.sum').each(function () {
-            var value = Number($(this).attr('multiply'));
+    
+            $('.sum').each(function () {
+                var value = Number($(this).attr('multiply'));
             if (!isNaN(value)) {
                 sum += value;
             }
@@ -36,67 +36,10 @@ $(document).ready(function() {
         $sumDisplay.text(sum);
     });
     
-    var itemIndex = 0;
-    
+
     $('input').change();
     
-    $('#ajaxform')
-        .on('click', '.addButton', function() {
-            itemIndex++;
-            var $template = $('#commodity'),
-                $clone    = $template
-                                .clone()
-                                .removeAttr('id')
-                                .attr('data-item-index', itemIndex)
-                                .attr('multiply', 0)
-                                .insertAfter($template);
-
-            // Update the name attributes
-            $clone
-                .find('[name="item"]')
-                    .attr('name', 'order_item_' + itemIndex)
-                    .attr('id', 'id_item_' + itemIndex)
-                    .val('').end()
-                .find('[name="quantity"]')
-                    .attr('name', 'order_quantity_' + itemIndex)
-                    .attr('id', 'id_quantity_' + itemIndex)
-                    .val('').end()
-                .find('[name="cost"]')
-                    .attr('name', 'order_cost_' + itemIndex)
-                    .attr('id', 'id_cost_' + itemIndex)
-                    .val('').end()
-                .find('label[for="id_item"]')
-                    .attr('for', 'id_item_' + itemIndex)
-                    .end()
-                .find('label[for="id_quantity"]')
-                    .attr('for', 'id_quantity_' + itemIndex)
-                    .end()
-                .find('label[for="id_cost"]')
-                    .attr('for', 'id_cost_' + itemIndex)
-                    .end()    
-                .find('span')
-                    .removeClass('glyphicon glyphicon-plus addButton')
-                    .addClass('glyphicon glyphicon-minus removeButton').end();
-                
-        })
-
-        // Remove button click handler
-        .on('click', '.removeButton', function() {
-            var $row  = $(this).parents('.form-group'),
-                index = $row.attr('data-item-index');
-
-            // Remove fields
-            $row.find('[name="item_' + index + '"]').remove();
-            $row.find('[name="quantity_' + index + '"]').remove();
-            $row.find('[name="cost_' + index + '"]').remove();
-
-            // Remove element containing the fields
-            $row.remove();
-            $('input').change();
-        });
-
-    
-    function block_form() {
+        function block_form() {
         $("#loading").show();
         $('textarea').attr('disabled', 'disabled');
         $('input').attr('disabled', 'disabled');
@@ -130,13 +73,10 @@ $(document).ready(function() {
 
             for (var error in errors) {
                 var id = '#id_' + error;
-                if (id.indexOf('form') == -1){
-                    $(id).parent('div')
-                        .prepend("<div class='errorlist'>" + errors[error][0].message + "</div>");
-                }else{
-                    $(id).parent('div')
-                        .prepend("<div class='errorlist'>" + errors[error][0] + "</div>");
-                }     
+                $(id).parent('div')
+                        .prepend("<div class='errorlist'>" + 
+                                 errors[error][0] +
+                                  "</div>");
             }
             setTimeout(function() {
                 $("#form_ajax_error").hide();

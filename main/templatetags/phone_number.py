@@ -4,6 +4,7 @@ from django.template import Library
 
 register = Library()
 
+
 @register.filter
 def phone_format(value):
     if not value:

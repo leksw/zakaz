@@ -3,6 +3,10 @@ from django.contrib import admin
 from .models import Client, Item, Order
 
 
+class ItemInline(admin.TabularInline):
+    model = Item
+
+
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     pass
@@ -20,9 +24,13 @@ make_archived.short_description = "Mark item as archive"
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'add_date','last_change_date','archive')
+    list_display = ('id', 'add_date', 'last_change_date', 'archive')
     list_editable = ('archive',)
     actions = [make_unarchived, make_archived]
+
+    inlines = [
+        ItemInline,
+    ]
 
 
 @admin.register(Item)
