@@ -46,7 +46,7 @@ $(document).ready( function () {
     
     // DataTable
     var table = $('#table_id').DataTable({
-         "language": {
+        "language": {
               "processing": "Подождите...",
               "search": "Поиск:",
               "lengthMenu": "Показать _MENU_ записей",
@@ -68,8 +68,8 @@ $(document).ready( function () {
                 "sortDescending": ": активировать для сортировки столбца по убыванию"
               }
             },
-            "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
-
+        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+            
     });
    
     // Phone number column search 
@@ -93,6 +93,7 @@ $(document).ready( function () {
             );
             table.draw();
         }
+        
     });
 
     $("#min").datepicker({
@@ -115,5 +116,22 @@ $(document).ready( function () {
         table.draw();
         
     });
+    $('#archive_checkbox').change();
+    
+    $('#get').click(function(){
+        console.log('get');
+        $.ajax({
+            type: "GET",
+            url: '/',
+            data: {'format': 'json'},
+            success: function (e){
+               console.log(e);
+            },
+            dataType: 'json'
+        });
+    
+       
+    });
+    
 });
 

@@ -76,5 +76,6 @@
     </form>
  {% endblock %}
  {% block footer_javascript %}
- <script src="{% static 'js/change_order.js' %}"></script>
+ {{ formset.media }}
+ <script src="{% static 'js/send_form.js' %}"></script>
  {% endblock %}

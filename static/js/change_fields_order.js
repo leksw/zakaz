@@ -1,6 +1,5 @@
 $(document).ready(function() {
-    var itemIndex = 0,
-    $button = $('#trigger'),
+    var $button = $('#trigger'),
     $button_plus = $button
         .clone()
         .addClass('glyphicon-plus')

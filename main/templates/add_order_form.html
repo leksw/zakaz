@@ -36,6 +36,7 @@
         <legend>Товар на сумму:&nbsp;<spin id="sum">0</spin></legend>
             <div id="management_formset">
             {{ formset.management_form }}
+            
             </div>
             {% for form in formset %}
             <div class="form-group sum">
@@ -60,6 +61,7 @@
                </div>
             </div>
          {% endfor %}
+         
          <span id="trigger" class="glyphicon" style="display:none;"></span>
     </fieldset>
     <div id="loading" style="display:none;">
@@ -77,5 +79,6 @@
     </form>
 {% endblock %}
 {% block footer_javascript %}
- <script src="{% static 'js/change_order.js' %}"></script>
+{{ formset.media }}
+ <script src="{% static 'js/send_form.js' %}"></script>
  {% endblock %}

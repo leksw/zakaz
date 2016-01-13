@@ -1,16 +1,45 @@
 # -*- coding: utf-8 -*-
+
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponseBadRequest
 from django.forms.models import modelformset_factory
+from django.core import serializers
 
 from .models import Order, Item
 from .forms import ClientForm, ItemForm
 from .utils import get_dict_errors_formset
 
 
-class OrderListView(ListView):
+class JSONResponseMixin(object):
+    """
+    A mixin that can be used to render a JSON response.
+    """
+    def render_to_json_response(self, context, **response_kwargs):
+        """
+        Returns a JSON response, transforming 'context' to make the payload.
+        """
+        return JsonResponse(self.get_data(), safe=False)
+
+    def get_data(self):
+        """
+        Returns an object that will be serialized as JSON by json.dumps().
+        """
+        context = serializers.serialize("json", self.get_queryset().amount())
+        return context
+
+
+class HybridListView(JSONResponseMixin, ListView):
+    def render_to_response(self, context):
+        # Look for a 'format=json' GET argument
+        if self.request.GET.get('format') == 'json':
+            return self.render_to_json_response(context)
+        else:
+            return super().render_to_response(context)
+
+
+class OrderListView(HybridListView):
     queryset = Order.objects.amount()
     template_name = 'order_list.html'
 
